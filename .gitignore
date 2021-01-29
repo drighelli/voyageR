@@ -1,0 +1,7 @@
+/.Rprofile
+/renv
+/renv.lock
+.Rproj.user
+inst/doc
+doc
+Meta

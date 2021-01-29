@@ -1,0 +1,25 @@
+Package: voyageR
+Title: Universal Access To Spatial Expression Analyses
+Version: 0.1.0
+Authors@R: c(
+    person(given = "Davide",
+           family = "Corso",
+           role = c("aut", "cre"),
+           email = "davide.corso.2@phd.unipd.it"),
+    person(given = "Gabriele",
+           family = "Sales",
+           role = c("aut"),
+           email = "gabriele.sales@unipd.it",
+           comment = c(ORCID = "0000-0003-2078-5661")))
+Description: Provides an universal API for exploring spatial expression
+ datasets and perform relevant statistical tests (eg, spatial differential
+ expression).
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+biocViews: Software, Transcriptomics
+Suggests:
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+RoxygenNote: 7.1.1

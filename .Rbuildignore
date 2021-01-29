@@ -1,0 +1,9 @@
+^renv$
+^renv\.lock$
+^LICENSE\.md$
+^.Rprofile$
+^renv.*$
+^.*\.Rproj$
+^\.Rproj\.user$
+^doc$
+^Meta$
