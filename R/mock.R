@@ -26,7 +26,9 @@ mockSVGenes <- function(tot_genes, de_genes, grid_size) {
   m <- (grid_size/2)+1
   mask <- coordinates$x < m & coordinates$y < m
   counts[seq.int(de_genes), mask] <- counts[seq.int(de_genes), mask] + 20
+  
   rownames(counts) <- paste0("gene", seq.int(tot_genes))
+  colnames(counts) <- paste("spot", coordinates$x, coordinates$y, sep = "_")
   
   SpatialExperiment(assays = SimpleList(counts = counts),
                     spatialCoords = coordinates)
