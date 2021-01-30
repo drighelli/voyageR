@@ -1,6 +1,6 @@
 Package: voyageR
 Title: Universal Access To Spatial Expression Analyses
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
     person(given = "Davide",
            family = "Corso",
@@ -16,10 +16,20 @@ Description: Provides an universal API for exploring spatial expression
  expression).
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
-biocViews: Software, Transcriptomics
+Imports:
+    methods,
+    SpatialExperiment,
+    pacman,
+    SummarizedExperiment,
+    S4Vectors,
+    stats
 Suggests:
     knitr,
-    rmarkdown
+    rmarkdown,
+    spatialDE
+Remotes: sales-lab/spatialDE@wrap_functions
+LazyData: true
+biocViews: Software, Transcriptomics, GeneExpression
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
+Roxygen: list(markdown = TRUE)
