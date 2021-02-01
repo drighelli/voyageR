@@ -60,8 +60,9 @@ spatialde_svg <- function(x, counts) {
   stabilized <- spatialDE::stabilize(counts)
   regressed <- spatialDE::regress_out(sample_info, stabilized)
   output <- spatialDE::run(coordinates, regressed)
-
-  rowData(x)$spatialde <- output
+  
+  ordering <- match(rownames(counts), output$g)
+  SummarizedExperiment::rowData(x)$spatialde <- output[ordering, ]
   return(x)
 }
 
