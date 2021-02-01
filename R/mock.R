@@ -7,7 +7,7 @@
 #' @return A [SpatialExperiment] object.
 #' 
 #' @importFrom SpatialExperiment SpatialExperiment
-#' @importFrom S4Vectors SimpleList
+#' @importFrom S4Vectors SimpleList DataFrame
 #' @importFrom stats rnbinom runif
 #' @export
 #' 
@@ -27,9 +27,13 @@ mockSVGenes <- function(tot_genes, de_genes, grid_size) {
   mask <- coordinates$x < m & coordinates$y < m
   counts[seq.int(de_genes), mask] <- counts[seq.int(de_genes), mask] + 20
   
-  rownames(counts) <- paste0("gene", seq.int(tot_genes))
+  genes <- paste0("gene", seq.int(tot_genes))
+  rownames(counts) <- genes
   colnames(counts) <- paste("spot", coordinates$x, coordinates$y, sep = "_")
   
+  rowData <- DataFrame(gene = genes)
+  
   SpatialExperiment(assays = SimpleList(counts = counts),
-                    spatialCoords = coordinates)
+                    spatialCoords = coordinates,
+                    rowData = rowData)
 }

@@ -3,6 +3,7 @@
 export(mockSVGenes)
 export(svGenes)
 exportMethods(svGenes)
+importFrom(S4Vectors,DataFrame)
 importFrom(S4Vectors,SimpleList)
 importFrom(SpatialExperiment,SpatialExperiment)
 importFrom(SpatialExperiment,spatialCoords)
