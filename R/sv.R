@@ -19,7 +19,7 @@ setGeneric("svGenes", function(x, method, ...) standardGeneric("svGenes"))
 #' Identifies spatially variable gene from the given SpatialExperiment.
 #'
 #' @param x SpatialExpression object.
-#' @param method Name of the method for testing spatial variabily.
+#' @param method Name of the method for testing spatial variability.
 #' @param assay Extract gene expression from this assay.
 #'
 #' @return Extended SpatialExpression object.
