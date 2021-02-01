@@ -26,10 +26,12 @@ Imports:
 Suggests:
     knitr,
     rmarkdown,
-    spatialDE
+    spatialDE,
+    testthat (>= 3.0.0)
 Remotes: sales-lab/spatialDE@wrap_functions
 LazyData: true
 biocViews: Software, Transcriptomics, GeneExpression
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
+Config/testthat/edition: 3
