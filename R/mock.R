@@ -12,7 +12,7 @@
 #' @export
 #' 
 #' @examples 
-#' mockSVGenes(1000, 10, 100)
+#' mockSVGenes(20, 2, 20)
 #' 
 mockSVGenes <- function(tot_genes, de_genes, grid_size) {
   coordinates <- data.frame(

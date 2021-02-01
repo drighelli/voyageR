@@ -35,7 +35,7 @@ setGeneric("svGenes", function(x, method, ...) standardGeneric("svGenes"))
 #' @aliases svGenes,SpatialExperiment,ANY-method
 #' 
 #' @examples 
-#' svGenes(mockSVGenes(100, 4, 40), method = "spatialde")
+#' svGenes(mockSVGenes(20, 2, 20), method = "spatialde")
 #' 
 setMethod("svGenes",
           "SpatialExperiment",
