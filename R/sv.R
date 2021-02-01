@@ -8,8 +8,6 @@
 #' @param method Name of the method for testing spatial variabily.
 #' @param ... Additional arguments.
 #'
-#' @return Extended object with DE information.
-#'
 #' @importFrom methods setGeneric
 #' @export
 #' @docType methods
@@ -18,14 +16,18 @@ setGeneric("svGenes", function(x, method, ...) standardGeneric("svGenes"))
 
 #' Identifies spatially variable gene from the given SpatialExperiment.
 #'
-#' @param x SpatialExpression object.
+#' @param x [SpatialExperiment] object.
 #' @param method Name of the method for testing spatial variability.
-#' @param assay Extract gene expression from this assay.
+#' @param assay Extract gene expression from the assay with the given name
+#'  (by default, "counts").
 #'
-#' @return Extended SpatialExpression object.
+#' @return A copy of the input [SpatialExperiment] object, extended with
+#'  a new `rowData` column named after the method used for the analysis
+#'  (for instance, "spatialde"). The new column holds a `data.frame` with
+#'  the full output of the analysis.
 #'
 #' @importFrom methods setMethod
-#' @importFrom SummarizedExperiment assay
+#' @importFrom SummarizedExperiment assay rowData
 #' @importFrom SpatialExperiment spatialCoords
 #' @export
 #'
@@ -57,7 +59,10 @@ spatialde_svg <- function(x, counts) {
   
   stabilized <- spatialDE::stabilize(counts)
   regressed <- spatialDE::regress_out(sample_info, stabilized)
-  spatialDE::run(coordinates, regressed)
+  output <- spatialDE::run(coordinates, regressed)
+
+  rowData(x)$spatialde <- output
+  return(x)
 }
 
 spark_svg <- function(x, counts) {

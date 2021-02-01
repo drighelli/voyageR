@@ -12,18 +12,20 @@ svGenes(x, method, ...)
 \S4method{svGenes}{SpatialExperiment}(x, method = c("spatialde", "spark"), assay = "counts")
 }
 \arguments{
-\item{x}{SpatialExpression object.}
+\item{x}{\link{SpatialExperiment} object.}
 
-\item{method}{Name of the method for testing spatial variabily.}
+\item{method}{Name of the method for testing spatial variability.}
 
 \item{...}{Additional arguments.}
 
-\item{assay}{Extract gene expression from this assay.}
+\item{assay}{Extract gene expression from the assay with the given name
+(by default, "counts").}
 }
 \value{
-Extended object with DE information.
-
-Extended SpatialExpression object.
+A copy of the input \link{SpatialExperiment} object, extended with
+a new \code{rowData} column named after the method used for the analysis
+(for instance, "spatialde"). The new column holds a \code{data.frame} with
+the full output of the analysis.
 }
 \description{
 You can select one among the following statistical tests:
