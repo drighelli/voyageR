@@ -1,7 +1,7 @@
 test_that("spatialDE identifies variable genes", {
   set.seed(42)
   
-  se <- mockSVGenes(20, 2, 20)
+  se <- mockSVGenes(100, 2, 100)
   output <- svGenes(se, method = "spatialde")
   
   expect_s4_class(output, "SpatialExperiment")
@@ -13,7 +13,7 @@ test_that("spatialDE identifies variable genes", {
   expect_s3_class(sde, "data.frame")
   expect_true(all(c("g", "qval") %in% colnames(sde)))
   expect_identical(sde$g, rd$gene)
-  
+
   expect_true(all(sde[1:2, "qval"] < 0.05))
   expect_true(all(sde[3:20, "qval"] > 0.05))
 })

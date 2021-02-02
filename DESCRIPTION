@@ -28,6 +28,7 @@ Suggests:
     knitr,
     rmarkdown,
     spatialDE,
+    SPARK,
     testthat (>= 3.0.0),
     BiocCheck
 Remotes:
