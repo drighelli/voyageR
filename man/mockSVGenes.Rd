@@ -4,14 +4,14 @@
 \alias{mockSVGenes}
 \title{Generate SpatialExperiment instance including spatially variable genes.}
 \usage{
-mockSVGenes(tot_genes, de_genes, grid_size)
+mockSVGenes(tot_genes, de_genes, lambda)
 }
 \arguments{
 \item{tot_genes}{Total number of gene profiles to be generated.}
 
 \item{de_genes}{Number of spatially variable genes.}
 
-\item{grid_size}{Genes will be spatially arranged on a size x size grid.}
+\item{lambda}{Expected number of points over which genes are sampled.}
 }
 \value{
 A \link{SpatialExperiment} object.
@@ -20,6 +20,6 @@ A \link{SpatialExperiment} object.
 Generate SpatialExperiment instance including spatially variable genes.
 }
 \examples{
-mockSVGenes(1000, 10, 100)
+mockSVGenes(20, 2, 20)
 
 }

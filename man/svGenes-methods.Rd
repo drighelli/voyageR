@@ -35,6 +35,6 @@ You can select one among the following statistical tests:
 }
 }
 \examples{
-svGenes(mockSVGenes(100, 4, 40), method = "spatialde")
+svGenes(mockSVGenes(100, 2, 100), method = "spatialde")
 
 }

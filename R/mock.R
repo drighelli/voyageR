@@ -2,34 +2,35 @@
 #'
 #' @param tot_genes Total number of gene profiles to be generated.
 #' @param de_genes Number of spatially variable genes.
-#' @param grid_size Genes will be spatially arranged on a size x size grid.
+#' @param lambda Expected number of points over which genes are sampled.
 #'
 #' @return A [SpatialExperiment] object.
 #' 
 #' @importFrom SpatialExperiment SpatialExperiment
 #' @importFrom S4Vectors SimpleList DataFrame
-#' @importFrom stats rnbinom runif
 #' @export
 #' 
 #' @examples 
 #' mockSVGenes(20, 2, 20)
 #' 
-mockSVGenes <- function(tot_genes, de_genes, grid_size) {
-  coordinates <- data.frame(
-    x = rep(seq.int(grid_size), grid_size),
-    y = rep(seq.int(grid_size), each=grid_size)
-  )
+mockSVGenes <- function(tot_genes, de_genes, lambda) {
+  pp <- trendsceek::sim_pois(lambda)
   
-  mu <- 2^runif(tot_genes, -1, 5)
-  counts <- matrix(rnbinom(tot_genes*grid_size*grid_size, mu=mu, size=10),
-                   nrow=tot_genes)
-  m <- (grid_size/2)+1
-  mask <- coordinates$x < m & coordinates$y < m
-  counts[seq.int(de_genes), mask] <- counts[seq.int(de_genes), mask] + 20
+  low_expr <- rep(10, de_genes)
+  high_expr <- rep(50, de_genes)
+  pp <- trendsceek::add_markdist_step(pp, low_expr, high_expr)
+  
+  coordinates <- data.frame(x = pp$x, y = pp$y)
+
+  counts <- rbind(
+    t(pp$marks),
+    matrix(stats::rpois((tot_genes - de_genes) * nrow(coordinates), 10),
+           ncol = nrow(coordinates))
+  )
   
   genes <- paste0("gene", seq.int(tot_genes))
   rownames(counts) <- genes
-  colnames(counts) <- paste("spot", coordinates$x, coordinates$y, sep = "_")
+  colnames(counts) <- paste0("spot", seq.int(nrow(coordinates)))
   
   rowData <- DataFrame(gene = genes)
   
