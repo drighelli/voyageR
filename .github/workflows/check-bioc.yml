@@ -113,6 +113,9 @@ jobs:
 
           ## For installing usethis's dependency gert
           brew install libgit2
+          
+          # XQuartz
+          brew install --cask xquartz
 
       - name: Install Windows system dependencies
         if: runner.os == 'Windows'
