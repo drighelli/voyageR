@@ -7,6 +7,9 @@
 #' @param x Spatial gene expression object.
 #' @param method Name of the method for testing spatial variabily.
 #' @param verbose Set to `TRUE` to enable verbose mode.
+#' @param core_num Use the given number of cores to run the analysis in
+#'  parallel. If set to `NULL`, will automatically detect and use all
+#'  available cores.
 #' @param ... Additional arguments.
 #'
 #' @importFrom methods setGeneric
@@ -14,7 +17,8 @@
 #' @docType methods
 #' @rdname svGenes-methods
 setGeneric("svGenes",
-  function(x, method, verbose = FALSE, ...) standardGeneric("svGenes"))
+  function(x, method, verbose = FALSE, core_num = NULL, ...)
+    standardGeneric("svGenes"))
 
 #' Identifies spatially variable gene from the given SpatialExperiment.
 #'
@@ -36,54 +40,59 @@ setGeneric("svGenes",
 #'
 #' @rdname svGenes-methods
 #' @aliases svGenes,SpatialExperiment,ANY-method
-#' 
-#' @examples 
+#'
+#' @examples
 #' svGenes(mockSVGenes(100, 2, 100), method = "spatialde")
-#' 
+#'
 setMethod("svGenes",
   "SpatialExperiment",
   function(x,
            method = c("spatialde", "spark"),
            verbose = FALSE,
+           core_num = NULL,
            assay = "counts") {
     method <- match.arg(method)
+
+    if (is.null(core_num))
+      core_num <- parallel::detectCores()
+
     counts <- SummarizedExperiment::assay(x, assay)
     switch(method,
            spatialde = spatialde_svg(x, counts),
-           spark = spark_svg(x, counts, verbose))
+           spark = spark_svg(x, counts, verbose, core_num))
   })
 
 spatialde_svg <- function(x, counts) {
   pacman::p_load_gh("sales-lab/spatialDE@wrap_functions")
-  
+
   coordinates <- as.data.frame(spatialCoords(x))
-  
+
   sample_info <- coordinates
   sample_info$total_counts <- colSums(counts)
-  
+
   stabilized <- spatialDE::stabilize(counts)
   regressed <- spatialDE::regress_out(sample_info, stabilized)
   output <- spatialDE::run(coordinates, regressed)
-  
+
   ordering <- match(rownames(counts), output$g)
   SummarizedExperiment::rowData(x)$spatialde <- output[ordering, ]
   return(x)
 }
 
-spark_svg <- function(x, counts, verbose) {
+spark_svg <- function(x, counts, verbose, core_num) {
   pacman::p_load_gh("sales-lab/SPARK")
-  
+
   cn <- colnames(counts)
   coordinates <- as.data.frame(spatialCoords(x))
   rownames(coordinates) <- cn
-  
+
   spark <- SPARK::CreateSPARKObject(counts = counts, location = coordinates)
   spark@lib_size <- apply(spark@counts, 2, sum)
 
   wrapper <- ifelse(verbose, identity, muted)
   output <- wrapper({
     spark <- SPARK::spark.vc(
-      spark, covariates = NULL, lib_size = spark@lib_size, num_core = 1,
+      spark, covariates = NULL, lib_size = spark@lib_size, num_core = core_num,
       verbose = verbose, fit.maxiter = 500)
     spark <- SPARK::spark.test(spark, check_positive = TRUE, verbose = verbose)
     spark@res_mtest

@@ -7,9 +7,15 @@
 \alias{svGenes,SpatialExperiment,ANY-method}
 \title{Identifies spatially variable genes.}
 \usage{
-svGenes(x, method, verbose = FALSE, ...)
+svGenes(x, method, verbose = FALSE, core_num = NULL, ...)
 
-\S4method{svGenes}{SpatialExperiment}(x, method = c("spatialde", "spark"), verbose = FALSE, assay = "counts")
+\S4method{svGenes}{SpatialExperiment}(
+  x,
+  method = c("spatialde", "spark"),
+  verbose = FALSE,
+  core_num = NULL,
+  assay = "counts"
+)
 }
 \arguments{
 \item{x}{\link{SpatialExperiment} object.}
@@ -17,6 +23,10 @@ svGenes(x, method, verbose = FALSE, ...)
 \item{method}{Name of the method for testing spatial variability.}
 
 \item{verbose}{Set to \code{TRUE} to enable verbose mode.}
+
+\item{core_num}{Use the given number of cores to run the analysis in
+parallel. If set to \code{NULL}, will automatically detect and use all
+available cores.}
 
 \item{...}{Additional arguments.}
 

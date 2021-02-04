@@ -23,7 +23,8 @@ Imports:
     SummarizedExperiment,
     S4Vectors,
     stats,
-    trendsceek
+    trendsceek,
+    parallel
 Suggests:
     knitr,
     rmarkdown,
