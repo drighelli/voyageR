@@ -12,7 +12,7 @@ Authors@R: c(
            email = "gabriele.sales@unipd.it",
            comment = c(ORCID = "0000-0003-2078-5661")))
 Description: Provides an universal API for exploring spatial expression
- datasets and perform relevant statistical tests (eg, spatial differential
+ datasets and performing relevant statistical tests (eg, spatial differential
  expression).
 License: MIT + file LICENSE
 Encoding: UTF-8
