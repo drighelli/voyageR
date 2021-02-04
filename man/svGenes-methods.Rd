@@ -7,14 +7,16 @@
 \alias{svGenes,SpatialExperiment,ANY-method}
 \title{Identifies spatially variable genes.}
 \usage{
-svGenes(x, method, ...)
+svGenes(x, method, verbose = FALSE, ...)
 
-\S4method{svGenes}{SpatialExperiment}(x, method = c("spatialde", "spark"), assay = "counts")
+\S4method{svGenes}{SpatialExperiment}(x, method = c("spatialde", "spark"), verbose = FALSE, assay = "counts")
 }
 \arguments{
 \item{x}{\link{SpatialExperiment} object.}
 
 \item{method}{Name of the method for testing spatial variability.}
+
+\item{verbose}{Set to \code{TRUE} to enable verbose mode.}
 
 \item{...}{Additional arguments.}
 
