@@ -2,7 +2,7 @@
 % Please edit documentation in R/mock.R
 \name{mockSVGenes}
 \alias{mockSVGenes}
-\title{Generate SpatialExperiment instance including spatially variable genes.}
+\title{Generate a mock SpatialExperiment including spatially variable genes.}
 \usage{
 mockSVGenes(tot_genes, de_genes, lambda)
 }
@@ -11,13 +11,13 @@ mockSVGenes(tot_genes, de_genes, lambda)
 
 \item{de_genes}{Number of spatially variable genes.}
 
-\item{lambda}{Expected number of points over which genes are sampled.}
+\item{lambda}{Expected number of spots over which genes are sampled.}
 }
 \value{
 A \link{SpatialExperiment} object.
 }
 \description{
-Generate SpatialExperiment instance including spatially variable genes.
+Implementation based on \code{\link[trendsceek:add_markdist_step]{trendsceek::add_markdist_step()}}.
 }
 \examples{
 mockSVGenes(20, 2, 20)
