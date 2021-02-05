@@ -79,8 +79,7 @@ spark_svg <- function(x, counts, verbose) {
   
   spark <- SPARK::CreateSPARKObject(counts = counts, location = coordinates)
   spark@lib_size <- apply(spark@counts, 2, sum)
-  
-  # # TODO: get in input `num_core`
+
   wrapper <- ifelse(verbose, identity, muted)
   output <- wrapper({
     spark <- SPARK::spark.vc(
