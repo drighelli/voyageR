@@ -33,7 +33,7 @@ Suggests:
     BiocCheck
 Remotes:
     edsgard/trendsceek,
-    sales-lab/spatialDE@wrap_functions,
+    sales-lab/spatialDE,
     sales-lab/SPARK
 LazyData: true
 biocViews: Software, Transcriptomics, GeneExpression

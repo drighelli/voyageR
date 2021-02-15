@@ -54,17 +54,17 @@ setMethod("svGenes",
   })
 
 spatialde_svg <- function(x, counts) {
-  pacman::p_load_gh("sales-lab/spatialDE@wrap_functions")
-  
+  pacman::p_load_gh("sales-lab/spatialDE")
+
   coordinates <- as.data.frame(spatialCoords(x))
   
   sample_info <- coordinates
   sample_info$total_counts <- colSums(counts)
   
   stabilized <- spatialDE::stabilize(counts)
-  regressed <- spatialDE::regress_out(sample_info, stabilized)
-  output <- spatialDE::run(coordinates, regressed)
-  
+  regressed <- spatialDE::regress_out(stabilized, sample_info)
+  output <- spatialDE::run(regressed, coordinates)
+
   ordering <- match(rownames(counts), output$g)
   SummarizedExperiment::rowData(x)$spatialde <- output[ordering, ]
   return(x)
