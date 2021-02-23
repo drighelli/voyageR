@@ -37,6 +37,6 @@ mockSVGenes <- function(tot_genes, de_genes, lambda) {
   rowData <- DataFrame(gene = genes)
 
   SpatialExperiment(assays = SimpleList(counts = counts),
-                    spatialCoords = coordinates,
+                    spatialData = coordinates,
                     rowData = rowData)
 }
